@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/natomata/github/gnosis/zodiac-4337/contracts/DAOValidator.sol": {
-      "lastModificationDate": 1681585628162,
-      "contentHash": "02a7a2e694d2536408e51253dce250ca",
+      "lastModificationDate": 1681587928911,
+      "contentHash": "397b5b04d7df04b58c68d2f51295f2dc",
       "sourceName": "contracts/DAOValidator.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -1051,6 +1051,48 @@
       ],
       "artifacts": [
         "Math"
+      ]
+    },
+    "/Users/natomata/github/gnosis/zodiac-4337/contracts/test/MockOZ.sol": {
+      "lastModificationDate": 1681587389543,
+      "contentHash": "38cbfcb752653e7ab6a34dc7d9c16c22",
+      "sourceName": "contracts/test/MockOZ.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": [
+        "MockOZ"
       ]
     }
   }

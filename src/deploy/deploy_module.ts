@@ -13,12 +13,11 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     FirstAddress,
     FirstAddress,
     FirstAddress,
-    FirstAddress,
-    FirstAddress,
-    chainId,
+    "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+    "0x0000000000000000000000000000000000000000",
   ];
 
-  await deploy("NomadModule", {
+  await deploy("DAOValidator", {
     from: deployer,
     args,
     log: true,
@@ -26,5 +25,5 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   });
 };
 
-deploy.tags = ["nomad-module"];
+deploy.tags = ["daovalidator-module"];
 export default deploy;

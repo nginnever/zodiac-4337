@@ -130,9 +130,9 @@ contract DAOValidator is Module, IPaymaster {
         address _recovered = hash.recover(userOp.signature);
         if (!canVoteSponsored[_recovered])
             return SIG_VALIDATION_FAILED;
-        if (votingToken.balanceOf(_recovered) != 0) {
-            revert SignerNotEligibleToVote();
-        }
+        // if (votingToken.balanceOf(_recovered) != 0) {
+        //     revert SignerNotEligibleToVote();
+        // }
         return 0;
     }
 
@@ -184,7 +184,7 @@ contract DAOValidator is Module, IPaymaster {
 
     function _validatePaymasterUserOp(UserOperation calldata userOp, bytes32 userOpHash, uint256 maxCost)
     internal returns (bytes memory context, uint256 validationData) {
-        
+        return("0x0", 1);
     }
 
     function postOp(PostOpMode mode, bytes calldata context, uint256 actualGasCost) external override {
