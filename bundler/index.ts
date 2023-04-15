@@ -16,6 +16,23 @@ const simpleAccountFactory = "0x9406Cc6185a346906296840746125a0E44976454"
 const accountFactory = new ethers.Contract(simpleAccountFactory, FactoryABI, signer);
 const AA = new ethers.Contract(entrypointAddress, EntryABI, signer);
 
+function signUserOp (op, signer, entryPoint, chainId) {
+  const message = getUserOpHash(op, entryPoint, chainId)
+  const msg1 = Buffer.concat([
+    Buffer.from('\x19Ethereum Signed Message:\n32', 'ascii'),
+    Buffer.from(arrayify(message))
+  ])
+
+  const sig = ecsign(keccak256_buffer(msg1), Buffer.from(arrayify(signer.privateKey)))
+  // that's equivalent of:  await signer.signMessage(message);
+  // (but without "async"
+  const signedMessage1 = toRpcSig(sig.v, sig.r, sig.s)
+  return {
+    ...op,
+    signature: signedMessage1
+  }
+}
+
 const UserOperation = {
   sender: AddressZero,
   nonce: 0,
