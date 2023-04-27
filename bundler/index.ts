@@ -54,3 +54,5 @@ async function main() {
 
 main();
 //console.log(EntryABI)
+
+// UserOp -> bundler -> entrypoint -> handleOps -> (payment things) -> validate sig and check can vote -> _executeUserOp -> execFromModule -> castVotebySig

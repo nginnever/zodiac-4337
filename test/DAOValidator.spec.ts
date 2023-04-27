@@ -2,31 +2,25 @@ import { expect } from "chai";
 import hre, { deployments, waffle } from "hardhat";
 import { utils } from "ethers";
 import "@nomiclabs/hardhat-ethers";
-import { utils as Utils } from "@nomad-xyz/multi-provider";
 
 const ZeroAddress = "0x0000000000000000000000000000000000000000";
-const FortyTwo = 42;
-const controllerDomain = 1;
 
-describe("NomadModule", async () => {
+describe("4337VoteModule", async () => {
   const baseSetup = deployments.createFixture(async () => {
     await deployments.fixture();
     const Avatar = await hre.ethers.getContractFactory("TestAvatar");
     const avatar = await Avatar.deploy();
-    const Mock = await hre.ethers.getContractFactory("Mock");
-    const mock = await Mock.deploy();
-    const ConnectionManager = await hre.ethers.getContractFactory(
-      "MockConnectionManager"
-    );
-    const connectionManager = await ConnectionManager.deploy();
+    const MockOZ = await hre.ethers.getContractFactory("MockOZ");
+    const mockOZ = await MockOZ.deploy();
+    const 
 
     const signers = await hre.ethers.getSigners();
-    return { Avatar, avatar, module, mock, connectionManager, signers };
+    return { Avatar, avatar, module, mockOZ, signers };
   });
 
   const setupTestWithTestAvatar = deployments.createFixture(async () => {
     const base = await baseSetup();
-    const Module = await hre.ethers.getContractFactory("NomadModule");
+    const Module = await hre.ethers.getContractFactory("DAOValidator");
     const provider = await hre.ethers.getDefaultProvider();
     const network = await provider.getNetwork();
     const controller = base.signers[0].address;
