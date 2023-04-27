@@ -3,14 +3,29 @@ pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
+import "./MultisendEncoder.sol";
 
 contract MockOZ is EIP712 {
     mapping(address => bool) public hasVoted;
     string internal name = "test";
+    /// @dev Functions restricted to `onlyGovernance()` are only callable by `owner`.
+    address public owner;
+    /// @dev Address of the multisend contract that this contract should use to bundle transactions.
+    address public multisend;
+    /// @dev Address that this module will pass transactions to.
+    address public target;
 
     bytes32 public constant BALLOT_TYPEHASH = keccak256("Ballot(uint256 proposalId,uint8 support)");
 
-    constructor() EIP712(name, version()) {}
+    constructor(
+        address _owner,
+        address _target,
+        address _multisend
+    ) EIP712(name, version()) {
+        owner = _owner;
+        target = _target;
+        multisend = _multisend;
+    }
 
     function castVote(
         uint256 proposalId,

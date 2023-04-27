@@ -1054,8 +1054,8 @@
       ]
     },
     "/Users/natomata/github/gnosis/zodiac-4337/contracts/test/MockOZ.sol": {
-      "lastModificationDate": 1682581838216,
-      "contentHash": "047627914debe6234fad2d0a915927ce",
+      "lastModificationDate": 1682582212874,
+      "contentHash": "2def98ba1afb088b015dca80fd984ecd",
       "sourceName": "contracts/test/MockOZ.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -1089,7 +1089,8 @@
       },
       "imports": [
         "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-        "@openzeppelin/contracts/utils/cryptography/EIP712.sol"
+        "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
+        "./MultisendEncoder.sol"
       ],
       "versionPragmas": [
         "^0.8.12"
@@ -1140,6 +1141,93 @@
       ],
       "artifacts": [
         "EIP712"
+      ]
+    },
+    "/Users/natomata/github/gnosis/zodiac-4337/contracts/test/MultisendEncoder.sol": {
+      "lastModificationDate": 1682582172473,
+      "contentHash": "457ef29fd867cce34f9e928856dc88f7",
+      "sourceName": "contracts/test/MultisendEncoder.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+        "@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.6"
+      ],
+      "artifacts": [
+        "MultisendEncoder"
+      ]
+    },
+    "/Users/natomata/github/gnosis/zodiac-4337/node_modules/@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol": {
+      "lastModificationDate": 1681577637047,
+      "contentHash": "a7b41ac2932ddd3c1d11c7076ace270d",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "MultiSend"
       ]
     }
   }

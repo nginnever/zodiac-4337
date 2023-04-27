@@ -6,7 +6,6 @@ pragma solidity ^0.8.12;
 
 import "./interfaces/IEntryPoint.sol";
 import "./interfaces/IPaymaster.sol";
-import "./interfaces/IERC20.sol";
 import "@gnosis.pm/zodiac/contracts/core/Module.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
@@ -29,22 +28,20 @@ contract DAOValidator is Module, IPaymaster {
     uint256 constant internal SIG_VALIDATION_FAILED = 1;
 
     mapping(address => bool) public canVoteSponsored;
-    mapping(uint256 => bool) public hasVoted;
+    mapping(uint256 => bool) public hasVoted; // OZ will catch duplicate voting
     mapping(address => uint256) public accounting;
 
     constructor(
         address _owner,
         address _avatar,
         address _target,
-        address _entrypoint,
-        address _votingToken
+        address _entrypoint
     ) {
         bytes memory initParams = abi.encode(
             _owner,
             _avatar,
             _target,
-            _entrypoint,
-            _votingToken
+            _entrypoint
         );
         setUp(initParams);
     }
@@ -54,8 +51,7 @@ contract DAOValidator is Module, IPaymaster {
             address _owner,
             address _avatar,
             address _target,
-            address _entrypoint,
-            address _votingToken
+            address _entrypoint
         ) = abi.decode(
             initParams,
             (address, address, address, address, address)
@@ -66,11 +62,10 @@ contract DAOValidator is Module, IPaymaster {
         require(_avatar != address(0), "Avatar can not be zero address");
         require(_target != address(0), "Target can not be zero address");
         require(_entrypoint != address(0), "4337 EntryPoint can not be zero address");
-        require(_votingToken != address(0), "4337 EntryPoint can not be zero address");
+        require(_votingToken != address(0), "Voting token");
         avatar = _avatar;
         target = _target;
         entryPoint = IEntryPoint(_entrypoint);
-        votingToken = IERC20(_votingToken);
 
         transferOwnership(_owner);
     }
@@ -79,14 +74,27 @@ contract DAOValidator is Module, IPaymaster {
         canVoteSponsored[_voter] = true;
     }
 
+    function addSponsoredVoterBatch(address[] memory _voters) public onlyOwner {
+        for(uint256 i = 0; i < _voters.length; i++) {
+            canVoteSponsored[_voters[i]] = true;
+        }
+    }
+
     function removeSponsoredVoter(address _voter) public onlyOwner {
         canVoteSponsored[_voter] = false;
     }
 
+    function removeSponsoredVoterBatch(address[] memory _voters) public onlyOwner {
+        for(uint256 i = 0; i < _voters.length; i++) {
+            canVoteSponsored[_voters[i]] = false;
+        }
+    }
     /**
      * Return the account nonce.
      * This method returns the next sequential nonce.
      * For a nonce of a specific key, use `entrypoint.getNonce(account, key)`
+     * NOTE: Replay protection may not be needed for this use case, replays 
+     * should revert in OZ
      */
     function getNonce() public view virtual returns (uint256) {
         return entryPoint.getNonce(address(this), 0);
